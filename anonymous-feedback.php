@@ -70,11 +70,11 @@ class Anonymous_Feedback_Plugin {
             }
             .anon-fb-trigger.has-icon {
                 padding: 0;
-                background: none;
+                background: transparent;
                 line-height: 0;
             }
             .anon-fb-trigger.has-icon:hover {
-                background: none;
+                background: transparent;
             }
             .anon-fb-trigger.has-icon img {
                 width: 24px;
