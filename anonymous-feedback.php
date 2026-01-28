@@ -35,7 +35,7 @@ class Anonymous_Feedback_Plugin {
      */
     public function render_shortcode( $atts ) {
         $atts = shortcode_atts( [
-            'button_text' => __( 'Give Feedback', 'anonymous-feedback' ),
+            'button_text' => 'Anna palautetta',
         ], $atts, 'anonymous_feedback' );
 
         $nonce = wp_create_nonce( self::NONCE_ACTION );
@@ -175,16 +175,16 @@ class Anonymous_Feedback_Plugin {
 
         <div class="anon-fb-overlay">
             <div class="anon-fb-popup">
-                <button class="anon-fb-close" type="button" aria-label="<?php esc_attr_e( 'Close', 'anonymous-feedback' ); ?>">&times;</button>
-                <h2><?php esc_html_e( 'Anonymous Feedback', 'anonymous-feedback' ); ?></h2>
-                <p class="anon-fb-desc"><?php esc_html_e( 'Your feedback is completely anonymous. We will not collect any personal information.', 'anonymous-feedback' ); ?></p>
+                <button class="anon-fb-close" type="button" aria-label="Sulje">&times;</button>
+                <h2>Anonyymi palaute</h2>
+                <p class="anon-fb-desc">Palautteesi on täysin anonyymi. Emme kerää mitään henkilötietoja.</p>
                 <form class="anon-fb-form">
-                    <label for="anon-fb-message"><?php esc_html_e( 'Your feedback', 'anonymous-feedback' ); ?></label>
-                    <textarea id="anon-fb-message" name="message" placeholder="<?php esc_attr_e( 'Write your feedback here...', 'anonymous-feedback' ); ?>" required></textarea>
+                    <label for="anon-fb-message">Palautteesi</label>
+                    <textarea id="anon-fb-message" name="message" placeholder="Kirjoita palautteesi tähän..." required></textarea>
                     <div class="anon-fb-notice"></div>
                     <div class="anon-fb-actions">
-                        <button type="button" class="anon-fb-cancel"><?php esc_html_e( 'Cancel', 'anonymous-feedback' ); ?></button>
-                        <button type="submit" class="anon-fb-send"><?php esc_html_e( 'Send', 'anonymous-feedback' ); ?></button>
+                        <button type="button" class="anon-fb-cancel">Peruuta</button>
+                        <button type="submit" class="anon-fb-send">Lähetä</button>
                     </div>
                 </form>
             </div>
@@ -226,7 +226,7 @@ class Anonymous_Feedback_Plugin {
                 if (!message) return;
 
                 sendBtn.disabled = true;
-                sendBtn.textContent = '<?php echo esc_js( __( 'Sending...', 'anonymous-feedback' ) ); ?>';
+                sendBtn.textContent = 'Lähetetään...';
                 notice.className = 'anon-fb-notice';
                 notice.textContent = '';
 
@@ -255,11 +255,11 @@ class Anonymous_Feedback_Plugin {
                 })
                 .catch(function () {
                     notice.className = 'anon-fb-notice error';
-                    notice.textContent = '<?php echo esc_js( __( 'Something went wrong. Please try again.', 'anonymous-feedback' ) ); ?>';
+                    notice.textContent = 'Jokin meni pieleen. Yritä uudelleen.';
                 })
                 .finally(function () {
                     sendBtn.disabled = false;
-                    sendBtn.textContent = '<?php echo esc_js( __( 'Send', 'anonymous-feedback' ) ); ?>';
+                    sendBtn.textContent = 'Lähetä';
                 });
             });
         })();
@@ -273,32 +273,32 @@ class Anonymous_Feedback_Plugin {
      */
     public function handle_submit() {
         if ( ! check_ajax_referer( self::NONCE_ACTION, 'nonce', false ) ) {
-            wp_send_json_error( __( 'Security check failed. Please reload the page and try again.', 'anonymous-feedback' ) );
+            wp_send_json_error( 'Turvatarkistus epäonnistui. Lataa sivu uudelleen ja yritä uudelleen.' );
         }
 
         $message = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
         if ( empty( $message ) ) {
-            wp_send_json_error( __( 'Please enter your feedback.', 'anonymous-feedback' ) );
+            wp_send_json_error( 'Kirjoita palautteesi.' );
         }
 
         $page_url = isset( $_POST['page_url'] ) ? esc_url_raw( wp_unslash( $_POST['page_url'] ) ) : '';
 
-        $subject = __( 'New Anonymous Feedback', 'anonymous-feedback' );
+        $subject = 'Uusi anonyymi palaute';
 
-        $body  = __( 'Anonymous feedback received:', 'anonymous-feedback' ) . "\n\n";
+        $body  = "Anonyymi palaute vastaanotettu:\n\n";
         $body .= $message . "\n\n";
         $body .= "---\n";
-        $body .= __( 'Submitted from:', 'anonymous-feedback' ) . ' ' . $page_url . "\n";
-        $body .= __( 'Date:', 'anonymous-feedback' ) . ' ' . wp_date( 'Y-m-d H:i:s' ) . "\n";
+        $body .= 'Lähetetty sivulta: ' . $page_url . "\n";
+        $body .= 'Päivämäärä: ' . wp_date( 'Y-m-d H:i:s' ) . "\n";
 
         $headers = [ 'Content-Type: text/plain; charset=UTF-8' ];
 
         $sent = wp_mail( self::RECIPIENT, $subject, $body, $headers );
 
         if ( $sent ) {
-            wp_send_json_success( __( 'Thank you! Your feedback has been sent.', 'anonymous-feedback' ) );
+            wp_send_json_success( 'Kiitos! Palautteesi on lähetetty.' );
         } else {
-            wp_send_json_error( __( 'Failed to send feedback. Please try again later.', 'anonymous-feedback' ) );
+            wp_send_json_error( 'Palautteen lähetys epäonnistui. Yritä myöhemmin uudelleen.' );
         }
     }
 }
