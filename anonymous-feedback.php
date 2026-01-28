@@ -70,16 +70,18 @@ class Anonymous_Feedback_Plugin {
             }
             .anon-fb-trigger.has-icon {
                 padding: 0;
-                background: transparent;
+                background: transparent !important;
+                border: none;
                 line-height: 0;
+                border-radius: 0;
             }
             .anon-fb-trigger.has-icon:hover {
-                background: transparent;
+                background: transparent !important;
             }
             .anon-fb-trigger.has-icon img {
-                width: 24px;
-                height: 24px;
-                object-fit: contain;
+                display: block;
+                max-width: 100%;
+                height: auto;
             }
             .anon-fb-overlay {
                 display: none;
