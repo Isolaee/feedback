@@ -70,6 +70,9 @@ class Anonymous_Feedback_Plugin {
             }
             .anon-fb-trigger.has-icon {
                 cursor: pointer;
+                background: transparent;
+                border: none;
+                padding: 0;
             }
             .anon-fb-trigger.has-icon img {
                 max-width: 90%;
