@@ -36,11 +36,22 @@ class Anonymous_Feedback_Plugin {
     public function render_shortcode( $atts ) {
         $atts = shortcode_atts( [
             'button_text' => 'Anna palautetta',
+            'icon'        => '',
         ], $atts, 'anonymous_feedback' );
 
         $nonce = wp_create_nonce( self::NONCE_ACTION );
         $ajax_url = esc_url( admin_url( 'admin-ajax.php' ) );
         $button_text = esc_html( $atts['button_text'] );
+
+        // Determine icon URL: support attachment ID or direct URL
+        $icon_url = '';
+        if ( ! empty( $atts['icon'] ) ) {
+            if ( is_numeric( $atts['icon'] ) ) {
+                $icon_url = wp_get_attachment_image_url( intval( $atts['icon'] ), 'thumbnail' );
+            } else {
+                $icon_url = esc_url( $atts['icon'] );
+            }
+        }
 
         ob_start();
         ?>
@@ -56,6 +67,15 @@ class Anonymous_Feedback_Plugin {
             }
             .anon-fb-trigger:hover {
                 background: #005a87;
+            }
+            .anon-fb-trigger.has-icon {
+                padding: 8px;
+                line-height: 0;
+            }
+            .anon-fb-trigger.has-icon img {
+                width: 24px;
+                height: 24px;
+                object-fit: contain;
             }
             .anon-fb-overlay {
                 display: none;
@@ -171,7 +191,13 @@ class Anonymous_Feedback_Plugin {
             }
         </style>
 
+        <?php if ( $icon_url ) : ?>
+        <button class="anon-fb-trigger has-icon" type="button" aria-label="<?php echo $button_text; ?>">
+            <img src="<?php echo esc_url( $icon_url ); ?>" alt="">
+        </button>
+        <?php else : ?>
         <button class="anon-fb-trigger" type="button"><?php echo $button_text; ?></button>
+        <?php endif; ?>
 
         <div class="anon-fb-overlay">
             <div class="anon-fb-popup">
