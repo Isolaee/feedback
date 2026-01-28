@@ -56,7 +56,7 @@ class Anonymous_Feedback_Plugin {
         ob_start();
         ?>
         <style>
-            .anon-fb-trigger {
+            .anon-fb-trigger:not(.has-icon) {
                 cursor: pointer;
                 padding: 10px 24px;
                 background: #0073aa;
@@ -65,8 +65,11 @@ class Anonymous_Feedback_Plugin {
                 border-radius: 4px;
                 font-size: 16px;
             }
-            .anon-fb-trigger:hover {
+            .anon-fb-trigger:not(.has-icon):hover {
                 background: #005a87;
+            }
+            .anon-fb-trigger.has-icon {
+                cursor: pointer;
             }
             .anon-fb-trigger.has-icon img {
                 max-width: 90%;
