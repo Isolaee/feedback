@@ -68,6 +68,10 @@ class Anonymous_Feedback_Plugin {
             .anon-fb-trigger:hover {
                 background: #005a87;
             }
+            .anon-fb-trigger.has-icon img {
+                max-width: 90%;
+                max-height: 90%;
+            }
             .anon-fb-overlay {
                 display: none;
                 position: fixed;
