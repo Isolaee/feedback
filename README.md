@@ -39,3 +39,7 @@ Each feedback email includes:
 - WordPress 5.3+
 - PHP 7.4+
 - A working `wp_mail()` configuration
+
+## License
+
+This software is proprietary and confidential. All rights reserved by Growth Rocket Oy. Unauthorized copying, modification, distribution, or use of this software is strictly prohibited.
