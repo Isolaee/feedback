@@ -3,8 +3,8 @@
  * Plugin Name: Anonymous Feedback
  * Description: Shortcode [anonymous_feedback] that opens a popup for submitting anonymous feedback via email.
  * Version: 1.0.0
- * Author: GrowthRocket
- * Text Domain: anonymous-feedback
+ * Author: Eero Isola
+ * Text Domain: anonymous-feedback form
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
