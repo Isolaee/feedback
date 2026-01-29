@@ -68,6 +68,7 @@ class Anonymous_Feedback_Plugin {
                 left: 0;
                 font-size: 0;
                 color: transparent;
+                z-index: 10;
             }
             .anon-fb-trigger.has-icon {
                 cursor: pointer;
@@ -220,15 +221,21 @@ class Anonymous_Feedback_Plugin {
 
         <script>
         (function () {
-            var wrapper   = document.currentScript.closest('div') || document.currentScript.parentNode;
-            var trigger   = wrapper.querySelector('.anon-fb-trigger');
-            var overlay   = wrapper.querySelector('.anon-fb-overlay');
-            var closeBtn  = wrapper.querySelector('.anon-fb-close');
-            var cancelBtn = wrapper.querySelector('.anon-fb-cancel');
-            var form      = wrapper.querySelector('.anon-fb-form');
-            var textarea  = wrapper.querySelector('#anon-fb-message');
-            var notice    = wrapper.querySelector('.anon-fb-notice');
-            var sendBtn   = wrapper.querySelector('.anon-fb-send');
+            var script    = document.currentScript;
+            var trigger   = script.previousElementSibling.previousElementSibling;
+            while (trigger && !trigger.classList.contains('anon-fb-trigger')) {
+                trigger = trigger.previousElementSibling;
+            }
+            var overlay   = script.previousElementSibling;
+            while (overlay && !overlay.classList.contains('anon-fb-overlay')) {
+                overlay = overlay.previousElementSibling;
+            }
+            var closeBtn  = overlay.querySelector('.anon-fb-close');
+            var cancelBtn = overlay.querySelector('.anon-fb-cancel');
+            var form      = overlay.querySelector('.anon-fb-form');
+            var textarea  = overlay.querySelector('#anon-fb-message');
+            var notice    = overlay.querySelector('.anon-fb-notice');
+            var sendBtn   = overlay.querySelector('.anon-fb-send');
 
             function openPopup() {
                 overlay.classList.add('active');
