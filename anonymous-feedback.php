@@ -205,11 +205,11 @@ class Anonymous_Feedback_Plugin {
         <div class="anon-fb-overlay">
             <div class="anon-fb-popup">
                 <button class="anon-fb-close" type="button" aria-label="Sulje">&times;</button>
-                <h2>Anonyymi palaute</h2>
-                <p class="anon-fb-desc">Palautteesi on täysin anonyymi. Emme kerää mitään henkilötietoja.</p>
+                <h2>Ota yhteyttä tai anna palautetta</h2>
+                <p class="anon-fb-desc">Viestisi on täysin anonyymi. Emme kerää mitään henkilötietoja. Jos kuitenkin haluat että olemme yhteydessä sinuun, voit antaa yhteystietosi viestikentässä."</p>
                 <form class="anon-fb-form">
-                    <label for="anon-fb-message">Palautteesi</label>
-                    <textarea id="anon-fb-message" name="message" placeholder="Kirjoita palautteesi tähän..." required></textarea>
+                    <label for="anon-fb-message">Viestisi</label>
+                    <textarea id="anon-fb-message" name="message" placeholder="Kirjoita viestisi tai palautteesi tähän..." required></textarea>
                     <div class="anon-fb-notice"></div>
                     <div class="anon-fb-actions">
                         <button type="button" class="anon-fb-cancel">Peruuta</button>
